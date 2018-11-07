@@ -166,7 +166,7 @@ def crawl(url, deep):
 
     except requests.exceptions.ConnectTimeout:
         # 如果存在并且不为False(即为True时)，重新设置为False
-        root_logger.info('###domain is:', main_domain)
+        root_logger.info('###domain is:' + str(main_domain))
 
         if global_site_status.get(main_domain, -1) == -1:
             global_site_status[main_domain] = False
