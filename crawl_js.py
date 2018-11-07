@@ -157,10 +157,12 @@ def crawl(url, deep):
                     global_html_list.append(html_href)
 
                     if global_html_count < MAX_HTML_COUNT:
+                        #avoid too many same websites
                         global_html_count += 1
 
-                    if deep > 0 and (global_html_count < MAX_HTML_COUNT   or global_js_count < MAX_JS_COUNT):
-                        crawl(html_href, deep - 1)
+                    if not html_href.endswith('.exe'):
+                        if deep > 0 and (global_html_count < MAX_HTML_COUNT   or global_js_count < MAX_JS_COUNT):
+                            crawl(html_href, deep - 1)
 
     except requests.exceptions.ConnectTimeout:
         # 如果存在并且不为False(即为True时)，重新设置为False
@@ -194,9 +196,9 @@ def schedule():
             continue
 
         url = tokens[0].strip()
-        rec_deep = int(tokens[1].strip())
-        MAX_HTML_COUNT = int(tokens[2].strip())
-        MAX_JS_COUNT = int(tokens[2].strip())
+        rec_deep = 2
+        MAX_HTML_COUNT = 100
+        MAX_JS_COUNT = 100
 
         print("[+] Url: " + url + ", recursive deep: " + str(rec_deep) \
         + ", html count: " + str(MAX_HTML_COUNT) + ", js count: " + str(MAX_JS_COUNT))
