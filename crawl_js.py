@@ -161,7 +161,7 @@ def crawl(url, deep):
                         global_html_count += 1
 
                     if not html_href.endswith('.exe'):
-                        if deep > 0 and (global_html_count < MAX_HTML_COUNT   or global_js_count < MAX_JS_COUNT):
+                        if deep > 0 and global_html_count < MAX_HTML_COUNT  and global_js_count < MAX_JS_COUNT:
                             crawl(html_href, deep - 1)
 
     except requests.exceptions.ConnectTimeout:
